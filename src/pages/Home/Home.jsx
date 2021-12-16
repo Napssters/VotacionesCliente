@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect}from "react";
+import React, { useState, useRef}from "react";
 import { useHistory } from 'react-router-dom';
 import './Home.scss';
 
@@ -6,57 +6,46 @@ import './Home.scss';
 const API = process.env.REACT_APP_API;
 
 export const Home = () => {
-    const isAdmin = false;
-    const isUser = false;
     const [usuario, setUsuario] = useState("");
     const [password, setPassword] = useState("");
     const history = useHistory();
 
     const nameInput = useRef(null);
-    let [usuarios, setUsuarios] = useState("");
-    let [votantes, setVotantes] = useState([]);
 
     const handleSubmit = (e) =>{
-        usuarios.find(function(element){
-            if((element.usuario == usuario) && (element.password == password)){
-                isAdmin=true;
-            }
-        })
-        votantes.find(function(element){
-            if((element.nombre == usuario) && (element.clave == password)){
-                isUser=true;
-            }
-        })
-        if(isAdmin==true){
-            history.push("/admin");
-        }else{
-            if(isUser==true){
-                history.push("/votaciones");
-            }else{
-                window.alert("Datos de inicio de sesion incorrectos")
-            }
-        }
-        setUsuario("");
-        setPassword("");
+        e.preventDefault();
     }
 
-    const getUsuarios = async () =>{
-        const res = await fetch(`${API}/usuariosdata`);
+    const loginAdmin = async () =>{
+        const res = await fetch(`${API}/admindata`);
         const data = await res.json();
-        setUsuarios(data);
+        nameInput.current.focus();
+        await redirectAdmin(data);
     }
 
-    const getVotantes = async () => {
+    const loginUser = async () =>{
         const res = await fetch(`${API}/votantesdata`);
         const data = await res.json();
-        setVotantes(data);
-    };
+        nameInput.current.focus();
+        await redirectUser(data);
+    }
 
-    useEffect(() => {
-        getUsuarios();
-        getVotantes();
-      }, []);
+    const redirectUser = async (data) => {
+        data.filter(function(element){
+            if((element.nombre == usuario) && (element.clave == password)){
+                history.push('/eleccioncandidato') 
+            }
+        });
+    }
 
+    const redirectAdmin = async (data) => {
+        data.filter(function(element){
+            if((element.usuario == usuario) && (element.password == password)){
+                history.push('/admin') 
+            }
+        });
+    }
+    
     return (
         <div className="vh-100 d-flex flex-column">
             <div className="container text-center poss">
@@ -87,9 +76,21 @@ export const Home = () => {
                             autoFocus
                         />
                     </div>
-                    <button className="poss btn btn-primary">
-                         Entrar
-                    </button>
+                    <div className="container-fluid">
+                        <button 
+                            onClick={(e) => loginAdmin()}
+                            className="btn btn-primary"
+                        >
+                            Enter As Admin
+                        </button>
+                        <button 
+                            onClick={(e) => loginUser()}
+                            className="poss-button btn btn-primary"
+                        >
+                            Enter As User
+                        </button>
+                    </div>
+                    
                 </form>
             </div>
         </div>   

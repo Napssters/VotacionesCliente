@@ -5,7 +5,7 @@ const API = process.env.REACT_APP_API;
 export const Elecciones = () => {
     const [fecha, setFecha] = useState("");
     const [horainicio, setHoraInicio] = useState("");
-    const [horafin, setHoraFin] = useState("");
+    const [horafiin, setHoraFiin] = useState("");
     const [nombre, setNombre] = useState("");
     const [descripcion, setDescripcion] = useState("");
 
@@ -27,7 +27,7 @@ export const Elecciones = () => {
             body: JSON.stringify({
                 fecha,
                 horainicio,
-                horafin,
+                horafiin,
                 nombre,
                 descripcion,
             }),
@@ -42,13 +42,12 @@ export const Elecciones = () => {
             body: JSON.stringify({
                 fecha,
                 horainicio,
-                horafin,
+                horafiin,
                 nombre,
                 descripcion,
             }),
           });
           const data = await res.json();
-          console.log(data);
           setEditing(false);
           setId("");
         }
@@ -57,7 +56,7 @@ export const Elecciones = () => {
         
         setFecha("");
         setHoraInicio("");
-        setHoraFin("");
+        setHoraFiin("");
         setNombre("");
         setDescripcion("");
         nameInput.current.focus();
@@ -76,7 +75,6 @@ export const Elecciones = () => {
             method: "DELETE",
           });
           const data = await res.json();
-          console.log(data);
           await getElecciones();
         }
     };
@@ -91,7 +89,7 @@ export const Elecciones = () => {
         // Reset
         setFecha(data.fecha);
         setHoraInicio(data.horainicio);
-        setHoraFin(data.horafin);
+        setHoraFiin(data.horafiin);
         setNombre(data.nombre);
         setDescripcion(data.descripcion);
         nameInput.current.focus();
@@ -128,8 +126,8 @@ export const Elecciones = () => {
                     <div className="form-group">
                         <input
                         type="time"
-                        onChange={(e) => setHoraFin(e.target.value)}
-                        value={horafin}
+                        onChange={(e) => setHoraFiin(e.target.value)}
+                        value={horafiin}
                         className="form-control"
                         placeholder="Hora final"
                         />
@@ -176,7 +174,7 @@ export const Elecciones = () => {
                         <tr key={eleccion.id}>
                             <td>{eleccion.fecha}</td>
                             <td>{eleccion.horainicio}</td>
-                            <td>{eleccion.horafin}</td>
+                            <td>{eleccion.horafiin}</td>
                             <td>{eleccion.nombre}</td>
                             <td>{eleccion.descripcion}</td>
                             <td>

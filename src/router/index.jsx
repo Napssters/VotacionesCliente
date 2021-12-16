@@ -13,6 +13,7 @@ function Router(){
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/admin" component={Admin} />
+            <Route path="/eleccioncandidato" component={Elecciones} />
             <Route path="/registrarelecciones" component={Elecciones} />
             <Route path="/registrarvotantes" component={Votantes} />
             <Route path="/registrarcandidatos" component={Candidatos} />
