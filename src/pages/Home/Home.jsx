@@ -67,7 +67,7 @@ export const Home = () => {
                     </div>
                     <div className="form-group">
                         <input 
-                            type="text" 
+                            type="password" 
                             onChange={(e) => setPassword(e.target.value)}
                             value={password}
                             className="form-control"

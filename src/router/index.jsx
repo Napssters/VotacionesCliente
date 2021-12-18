@@ -6,6 +6,7 @@ import { Admin } from '../pages/Admin/Admin';
 import { Votantes } from '../pages/Votantes/Votantes';
 import { Candidatos } from '../pages/Candidatos/Candidatos';
 import { Elecciones } from '../pages/Elecciones/Elecciones';
+import { SeleccionCandidatos } from '../pages/SeleccionCandidatos/SeleccionCandidatos';
 
 function Router(){
     return (
@@ -13,7 +14,7 @@ function Router(){
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/admin" component={Admin} />
-            <Route path="/eleccioncandidato" component={Elecciones} />
+            <Route path="/eleccioncandidato" component={SeleccionCandidatos} />
             <Route path="/registrarelecciones" component={Elecciones} />
             <Route path="/registrarvotantes" component={Votantes} />
             <Route path="/registrarcandidatos" component={Candidatos} />
